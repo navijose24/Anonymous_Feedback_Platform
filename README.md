@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 💬 Anonymous Feedback Platform
 
 > "Say what you really think. Without revealing who you are."
@@ -128,3 +129,7 @@ However, your hosting provider's web server (Apache) and infrastructure may reta
 ## 📄 License
 
 MIT — free to use for academic and personal projects.
+..
+=======
+
+>>>>>>> 0a6202aad2ee5dc11e414bbf88c20d7abaf07751
