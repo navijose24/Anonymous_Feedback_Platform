@@ -1,0 +1,31 @@
+# Anonymous Feedback Platform — Apache config
+# Enables clean URLs like /f/username → f.php?u=username
+
+Options -Indexes
+ServerSignature Off
+
+# ── Pretty /f/<username> URLs ──────────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Already a real file or directory — serve it directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # /f/username → /f.php?u=username
+    RewriteRule ^f/([a-zA-Z0-9_\-]+)/?$ f.php?u=$1 [L,QSA]
+</IfModule>
+
+# ── Security headers ───────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ── Hide sensitive files ───────────────────────────────────────────────────────
+<FilesMatch "\.(env|sql|log|git|md)$">
+    Require all denied
+</FilesMatch>
